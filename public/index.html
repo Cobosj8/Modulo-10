@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Shooter Game</title>
+  <link type="text/css" rel="stylesheet" href="game.css">
+  <meta name="viewport" content="user-scalable=0"/>
+  <script src="Game.js" type="text/javascript"></script>
+  <script src="Entity.js" type="text/javascript"></script>
+  <script src="Character.js" type="text/javascript"></script>
+  <script src="Player.js" type="text/javascript"></script>
+  <script src="Opponent.js" type="text/javascript"></script>
+  <script src="Shot.js" type="text/javascript"></script>
+  <script src="main.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <button id="pause" class="gamebutton" onclick="this.blur();">Pausa</button>
+  <button id="reset" class="gamebutton" onclick="this.blur();">NUEVA PARTIDA</button>
+
+   <!-- Agregar un botón para instalar la PWA -->
+   <button id="installButton" style="display: none;">Instalar PWA</button>
+
+   <script>
+     if ('serviceWorker' in navigator) {
+       window.addEventListener('load', () => {
+         navigator.serviceWorker.register('/service-worker.js')
+           .then(registration => {
+             console.log('Service Worker registered:', registration);
+           })
+           .catch(error => {
+             console.error('Service Worker registration failed:', error);
+           });
+       });
+     }
+ 
+     // Mostrar el botón de instalación si es una PWA y aún no está instalada
+     window.addEventListener('beforeinstallprompt', (event) => {
+       event.preventDefault();
+       const installButton = document.getElementById('installButton');
+       installButton.style.display = 'block';
+       installButton.addEventListener('click', () => {
+         event.prompt();
+       });
+     });
+   </script>
+</body>
+
+</html>
